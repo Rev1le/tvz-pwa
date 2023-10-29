@@ -4,18 +4,13 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <div>
-    <!-- <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-      fafssafa
-    </a> -->
+    Фотографии, которые будут кешированы
     <input @change="onFileChange" ref="fileInput" type="file" />
-    <!-- <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-      
-    </a> -->
+
   </div>
-  <img style="max-width: 50px; max-height: 50px;" v-for="img in imagesUrl" :src="prepareImage(img)" />
-  <HelloWorld msg="Vite + Vue" />
+  <div tyle="display: flex; flex-direction: column;">
+    <img style="max-height: 500px;" v-for="img in imagesUrl" :src="prepareImage(img)" />
+  </div>
 </template>
 
 <script>
@@ -41,17 +36,12 @@ export default {
       }
 
       this.saveFilesToLocalStorage(files);
-
-      // doSomethingWithTheFile(files[0]);
-      // console.log(files);
     },
     saveFilesToLocalStorage(files) {
       for (const file of files) {
-        // console.log(file);
         const reader = new FileReader();
         reader.onloadend = () => {
           const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
-
           let imagesStr = localStorage.getItem('wallpaper');
 
           let imagesArray = []
