@@ -1,0 +1,17 @@
+services:
+  pwa-dev:
+    container_name: tvz_pwa
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+     - type: bind
+       source: ./src
+       target: /usr/src/app/src
+
+  pwa_preview:
+    container_name: tvz_pwa
+    build: .
+    ports:
+      - 8080:8080
+    command: npm run preview
