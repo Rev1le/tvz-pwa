@@ -1,12 +1,12 @@
 {
   "name": "tvz-pwa",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview --host --port 8080"
+    "preview": "vite build && vite preview --host --port 8080"
   },
   "dependencies": {
     "vue": "^3.3.4"
