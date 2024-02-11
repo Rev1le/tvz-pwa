@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const httpApi = axios.create({
+const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
     "Content-type": "application/json",
@@ -8,7 +8,7 @@ const httpApi = axios.create({
 });
 
 // Add a request interceptor
-httpApi.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     return config;
@@ -20,7 +20,7 @@ httpApi.interceptors.request.use(
 );
 
 // Add a response interceptor
-httpApi.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
@@ -33,4 +33,4 @@ httpApi.interceptors.response.use(
   }
 );
 
-export { httpApi };
+export { axiosInstance };

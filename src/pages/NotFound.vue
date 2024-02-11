@@ -1,20 +1,24 @@
 <template>
 <div class="not-found-page">
- <!-- <span>NOT FOUND</span>
- <button>dsdsdsds</button> -->
- <Filter />
- <Filter />
+  <span>NOT FOUND</span>
+  <button>dsdsdsds</button>
+  fwfwfwf
+  <button>
+    fwfwf
+  </button>
 </div>
 </template>
 
 <script setup lang="ts">
-import Filter from "@/entities/Filter.vue";
+// import PageFilters from '../widgets/PageFilters.vue';
 </script>
 
 <style>
 .not-found-page {
-  display: flex;
+  background-color: white;
+  height: 100%;
+  /* display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 8px; */
 }
 </style>
