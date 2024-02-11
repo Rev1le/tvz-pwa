@@ -1,0 +1,41 @@
+@import url("https://fonts.cdnfonts.com/css/pt-root-ui");
+
+*,
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+}
+
+
+* {
+  box-sizing: border-box;
+  font-family: PT Root UI;
+}
+
+// div {
+//   height: 100%;
+//   width: 100%;
+
+//   padding: 10px;
+//   font-size: 20px;
+// }
+
+//Стили проекта
+
+* {
+  color: #232537;
+}
+
+a {
+  color: #0061A6;
+}
+
+div, span {
+  border-radius: 4px;
+}
