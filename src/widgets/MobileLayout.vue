@@ -19,9 +19,9 @@ import AppStatusIcon from '@/features/AppStatusIcon.vue';
     </div>
   </header>
   <main>
-    <div class="mobile-layout__filters">
+    <!-- <div class="mobile-layout__filters">
       <slot name="filters"></slot>
-    </div>
+    </div> -->
     
     <div class="mobile-layout__page-content">
       <slot name="content"></slot>

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import MobileLayout from '@/widgets/MobileLayout.vue';
-import GlobalFilter from "@/entities/filters/GlobalFilter.vue";
+// import GlobalFilter from "@/entities/filters/GlobalFilter.vue";
+import { FieldInput } from "@/entities/field";
 
 const filters = [
   'storage',
@@ -12,7 +13,7 @@ const filters = [
 <template>
   <mobile-layout>
     <template v-slot:filters>
-      <global-filter :key="filter" v-for="filter in filters" />
+      <FieldInput placeholder="Выберите площадку" :key="filter" v-for="filter in filters" />
     </template>
     <template v-slot:content>
       <router-view v-slot="{ Component }">
