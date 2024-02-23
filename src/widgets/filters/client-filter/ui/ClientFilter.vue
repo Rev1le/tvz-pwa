@@ -1,9 +1,9 @@
 <script setup>
-import { FieldInput } from '@/entities/field';
+import { InputField } from '@/entities/field';
 </script>
 
 <template>
-<FieldInput />
+<InputField />
 </template>
 
 <style>

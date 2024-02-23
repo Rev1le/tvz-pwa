@@ -1,8 +1,10 @@
 <script setup>
-import { FormField } from "../entities/form-field";
+// import { FormField } from "../entities/form-field";
 import LinkExt from "../shared/assets/icons/link-ext.svg";
 import { Tabs } from '../widgets/tabs';
+import { FieldGroup } from '../entities/field-group';
 import { ref } from 'vue';
+import { FormField, InputField } from "../entities/field";
 
 
 // import FilterSpan from "./FilterSpan.vue"
@@ -13,6 +15,7 @@ const tab = ref(null);
 
 <template>
   <div class="service-order-form">
+    
     <Tabs @changeTab="tab = $event" />
     <div class="service-order-form__fields common-labels">
       <div class="common-labels__labels">
@@ -47,8 +50,22 @@ const tab = ref(null);
 
     </div>
     <div class="service-order-form__fields">
-      <FormField />
-      <FormField />
+      <FormField label="Площадка">
+        <InputField placeholder="Выберит площадку" />
+      </FormField>
+      <FormField label="Отдел">
+        <InputField />
+      </FormField>
+    </div>
+    <div class="service-order-form__fields">
+      <FieldGroup>
+        <template v-slot:fields>
+          <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 10px;">
+            <FormField />
+            <FormField />
+          </div>
+        </template>
+      </FieldGroup>
     </div>
   </div>
 </template>

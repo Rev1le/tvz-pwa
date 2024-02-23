@@ -1,3 +1,4 @@
-import FieldInput from "./ui/FieldInput.vue";
+import InputField from "./ui/InputField.vue";
+import FormField from "./ui/FormField.vue";
 
-export { FieldInput };
+export { InputField, FormField };
