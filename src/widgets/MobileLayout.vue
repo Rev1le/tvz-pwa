@@ -1,6 +1,16 @@
 <script setup lang="ts">
+import { inject } from 'vue';
+import { InputField } from "@/entities/field";
 import AppStatusIcon from '@/features/AppStatusIcon.vue';
 // import TButton from '../shared/ui-kit/Button.vue';
+
+let appStore: any = inject('appStore')
+appStore = appStore();
+
+const filters = [
+  'storage',
+  'orders'
+];
 
 </script>
 
@@ -15,12 +25,12 @@ import AppStatusIcon from '@/features/AppStatusIcon.vue';
     <h1>Заявки</h1>
     <div class="mobile-layout__app-status">
       <app-status-icon />
-      Online
+      {{ appStore.isOnlineMode ? 'Online' : 'Offline' }}
     </div>
   </header>
   <main>
     <div class="mobile-layout__filters">
-      <slot name="filters"></slot>
+      <InputField placeholder="Выберите площадку" :key="filter" v-for="filter in filters" />
     </div>
     
     <div class="mobile-layout__page-content">

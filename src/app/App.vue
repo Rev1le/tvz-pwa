@@ -1,20 +1,38 @@
 <script lang="ts" setup>
 import MobileLayout from '@/widgets/MobileLayout.vue';
 // import GlobalFilter from "@/entities/filters/GlobalFilter.vue";
-import { InputField } from "@/entities/field";
+// import { InputField } from "@/entities/field";
+import { useAppStore } from './providers/store'
+import { provide } from 'vue'
 
-const filters = [
-  'storage',
-  'orders'
-];
+provide('appStore', useAppStore);
+
+
+// const filters = [
+//   'storage',
+//   'orders'
+// ];
+
+
+const store = useAppStore()
+
+window.addEventListener('offline', () => {
+  console.log('Offline');
+  store.$patch((state: { isOnlineMode: boolean; }) => {state.isOnlineMode = false});
+});
+
+window.addEventListener('online', () => {
+  console.log('Online');
+  store.$patch((state: { isOnlineMode: boolean; }) => {state.isOnlineMode = true});
+});
 
 </script>
 
 <template>
   <mobile-layout>
-    <template v-slot:filters>
+    <!-- <template v-slot:filters>
       <InputField placeholder="Выберите площадку" :key="filter" v-for="filter in filters" />
-    </template>
+    </template> -->
     <template v-slot:content>
       <router-view v-slot="{ Component }">
         <component :is="Component" />

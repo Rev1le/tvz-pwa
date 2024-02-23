@@ -1,15 +1,15 @@
 <template>
-  <div class="app-status-icon" :class="iconStateClass"></div>
+  <div class="app-status-icon" :class="isOnlineMode ? 'is-online' : 'is-offline'"></div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { inject } from 'vue';
+import { storeToRefs } from 'pinia';
 
-const isOnline = ref(false);
+let appStore: any = inject('appStore')
+appStore = appStore();
 
-const iconStateClass = computed(() => {
-  return isOnline ? 'is-online' : 'is-offline';
-});
+const { isOnlineMode } = storeToRefs(appStore)
 </script>
 
 <style scoped>

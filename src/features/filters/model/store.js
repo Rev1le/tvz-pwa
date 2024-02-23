@@ -4,7 +4,7 @@ export const useFiltersStore = defineStore('filters', {
   state: () => {
     return { 
       values: {
-
+        client: 1
       },
       filters: {
         client: {

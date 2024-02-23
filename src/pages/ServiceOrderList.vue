@@ -1,15 +1,23 @@
 <script setup lang="ts">
 import { useRouter,  } from 'vue-router'
+import { onMounted,  } from 'vue';
 
+import { useFiltersStore } from "@/features/filters";
 import Arrow from "@/shared/assets/icons/down-arrow.svg";
 import OkSquared from '../shared/assets/icons/ok_squared.svg'
 import CancelSquared from '../shared/assets/icons/cancel-squared.svg'
 
-const router = useRouter()
-// const route = useRoute()
+const router = useRouter();
+
+
+
+// const store = value();
+
+onMounted(() => {
+
+});
 
 function openServiceOrder(id: number) {
-  console.log(id)
   router.push({
     name: 'ServiceOrderForm',
     query: {
@@ -18,9 +26,17 @@ function openServiceOrder(id: number) {
   })
 }
 
+
+
+const filterStore = useFiltersStore();
+
+
+
+
 </script>
 
 <template>
+  {{ filterStore.values }}
   <div class="service-order-list">
     <div class="service-order-list__header">Sorting <Arrow /></div>
     <table class="service-order-list__list">
