@@ -1,9 +1,18 @@
 import axios from "axios";
 
+/**
+ * Ключ, по которому идет авторизация пользователя
+ * @var {string}
+ */
+const AUTH_KEY = "45k05WvV9ijUY6A-D-WWAVte2J7lyoEM";
+
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
     "Content-type": "application/json",
+    "X-Api-Key": AUTH_KEY,
+    // "Access-Control-Allow-Origin": "*",
+    // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
 });
 

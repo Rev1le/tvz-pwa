@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite --debug --host",
     "preview": "vite preview --host",
     "build": "run-p build:*",
     "build:app": "vite build",

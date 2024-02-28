@@ -1,21 +1,21 @@
 import { defineStore } from 'pinia'
 
-export const useFilterStore = defineStore('filter', {
-  state: () => {
-    return { 
-      values: {
+import { axiosInstance } from "@/shared/api";
 
-      },
+export const useFilterStore = defineStore("filter", {
+  state: () => {
+    return {
+      values: {},
       filters: {
         client: {
           isEnabled: false,
           entities: {
-            1: {name: 'Клиент1'},
-            2: {name: 'Клиент2'},
-          }
-        }
-      }
-    }
+            1: { name: "Клиент1" },
+            2: { name: "Клиент2" },
+          },
+        },
+      },
+    };
   },
   actions: {
     enableFilter(filterId) {
@@ -24,6 +24,11 @@ export const useFilterStore = defineStore('filter', {
       }
 
       this.filters[filterId].isEnabled = filter;
+    },
+    async initEntitiesFilters() {
+      // const reqUrl = "/vue-global-filter/division-tree/";
+      // const response = await axiosInstance.get(reqUrl);
+      // console.log(response);
     },
   },
   getters: {
@@ -38,7 +43,6 @@ export const useFilterStore = defineStore('filter', {
       }
 
       return enabledFilters;
-
     },
   },
-})
+});

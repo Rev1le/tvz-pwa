@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import MobileLayout from '@/widgets/MobileLayout.vue';
-// import GlobalFilter from "@/entities/filters/GlobalFilter.vue";
-// import { InputField } from "@/entities/field";
+import { MobileLayout } from '@/widgets/mobile-layout';
 import { useAppStore } from './providers/store'
-import { provide } from 'vue'
+import { provide, onMounted } from 'vue'
+import { axiosInstance } from '../shared/api';
 
 provide('appStore', useAppStore);
 
@@ -13,26 +12,31 @@ provide('appStore', useAppStore);
 //   'orders'
 // ];
 
+provide('axios', axiosInstance);
 
-const store = useAppStore()
-
-window.addEventListener('offline', () => {
-  console.log('Offline');
-  store.$patch((state: { isOnlineMode: boolean; }) => {state.isOnlineMode = false});
+onMounted(() => {
+  axiosInstance.get('/main/pwa/app-version/', {
+  }).then((r: any) => console.log(r.data));
+  
+  axiosInstance.get('/main/pwa/service-order-list/', {
+  }).then((r: any) => console.log(r.data));
 });
+// const store = useAppStore()
 
-window.addEventListener('online', () => {
-  console.log('Online');
-  store.$patch((state: { isOnlineMode: boolean; }) => {state.isOnlineMode = true});
-});
+// window.addEventListener('offline', () => {
+//   console.log('Offline');
+//   store.$patch((state: { isOnlineMode: boolean; }) => {state.isOnlineMode = false});
+// });
+
+// window.addEventListener('online', () => {
+//   console.log('Online');
+//   store.$patch((state: { isOnlineMode: boolean; }) => {state.isOnlineMode = true});
+// });
 
 </script>
 
 <template>
   <mobile-layout>
-    <!-- <template v-slot:filters>
-      <InputField placeholder="Выберите площадку" :key="filter" v-for="filter in filters" />
-    </template> -->
     <template v-slot:content>
       <router-view v-slot="{ Component }">
         <component :is="Component" />

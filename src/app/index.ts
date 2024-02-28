@@ -15,10 +15,8 @@ if ('serviceWorker' in navigator && !isDevMode) {
   import('./providers/service-worker').then(({ wb }) => {
     wb.register().then(
       (sw: any) => {
-        provide('serviceWorkerRegistration', sw);
-        provide('workbox', wb);
-        // vueApp.config.globalProperties.$serviceWorkerRegistration = sw
-        // vueApp.config.globalProperties.$workbox = wb
+        vueApp.config.globalProperties.$serviceWorkerRegistration = sw
+        vueApp.config.globalProperties.$workbox = wb
       }
     );
   });
