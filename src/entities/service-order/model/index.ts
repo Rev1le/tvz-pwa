@@ -1,20 +1,42 @@
 import { defineStore } from "pinia";
 
-import { axiosInstance } from "@/shared/api";
+import * as tvzApi from '../api';
 
-type State = {
-  orders: number[];
+interface OrderTaskTypes {
+  stageOrderPreparation: Array<any>;
+  stageEquipmentPreparation: Array<any>;
+  stageOrderCompletion: Array<any>;
+}
+
+interface ServiceOrderCard {
+  id: number;
+  name: string;
+  priority: number;
+  allFaultAmount: number;
+  openedFaultAmount: number;
+  clientName: string;
+  rootStorageName: string;
+  dateStart: string;
+  dateExecution: string;
+  dateStop: string;
+  contractorName: string;
+  tasks: OrderTaskTypes
+}
+
+type StoreState = {
+  orders: ServiceOrderCard[];
 };
 
 export const useServiceOrderStore = defineStore("service-order", {
-  state: (): State => ({
+  state: (): StoreState => ({
     orders: [],
   }),
   actions: {
     async requestOrderList() {
-      const reqUrl = "/main/pwa/service-order-list/";
-      const response = await axiosInstance.get(reqUrl);
-      this.orders = response.data;
-    }
-  }
+      this.orders = await tvzApi.getOrderdList();
+    },
+  },
 });
+
+
+

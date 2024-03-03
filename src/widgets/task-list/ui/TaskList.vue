@@ -2,8 +2,8 @@
 // import { PropType } from 'vue';
 import { orderTaskIcon, } from "@/features/order-task";
 
-import OkSquared from '@/shared/assets/icons/ok_squared.svg'
-import CancelSquared from '@/shared/assets/icons/cancel-squared.svg'
+import OkSquared from '@/shared/ui/assets/icons/ok_squared.svg'
+import CancelSquared from '@/shared/ui/assets/icons/cancel-squared.svg'
 
 const $props = defineProps({
   taskList: {
@@ -17,7 +17,7 @@ const $props = defineProps({
 <template>
   <div class="task-list">
     <component
-      v-for="task in taskList" 
+      v-for="task in taskList.filter(task => !!task)" 
       :key="task"
       :is="orderTaskIcon(task) === 'check-square' ? OkSquared : CancelSquared"
     ></component>

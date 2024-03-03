@@ -1,13 +1,13 @@
 <script setup>
-// import { FormField } from "../entities/form-field";
-import LinkExt from "../shared/assets/icons/link-ext.svg";
-import { Tabs } from '../widgets/tabs';
-import { FieldGroup } from '../entities/field-group';
+import LinkExt from "@/shared/ui/assets/icons/link-ext.svg";
+import FolderOpenEmpty from "@/shared/ui/assets/icons/folder-open-empty.svg";
+import DocText from "@/shared/ui/assets/icons/doc-text.svg";
+import { Tabs } from '@/widgets/tabs';
+import { FaultList } from '@/widgets/fault/fault-list';
+import { FieldGroup } from '@/entities/field-group';
 import { ref } from 'vue';
-import { FormField, InputField } from "../entities/field";
+import { FormField, InputField } from "@/shared/ui/field";
 
-
-// import FilterSpan from "./FilterSpan.vue"
 
 const tab = ref(null);
 
@@ -43,29 +43,27 @@ const tab = ref(null);
         
       </div>
       <div class="common-labels__link-btn-list">
-        <span class="link-btn"><LinkExt /></span>
-        <span class="link-btn"><LinkExt /></span>
+        <span class="link-btn"><FolderOpenEmpty /></span>
+        <span class="link-btn"><DocText /></span>
         <span class="link-btn"><LinkExt /></span>
       </div>
 
     </div>
-    <div class="service-order-form__fields">
-      <FormField label="Площадка">
-        <InputField placeholder="Выберит площадку" />
-      </FormField>
-      <FormField label="Отдел">
-        <InputField />
-      </FormField>
-    </div>
+
     <div class="service-order-form__fields">
       <FieldGroup>
         <template v-slot:fields>
           <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 10px;">
-            <FormField />
-            <FormField />
+            
+            <FormField label="Дата"><InputField /></FormField>
+            <FormField label="Дата еще"><InputField /></FormField>
           </div>
         </template>
       </FieldGroup>
+    </div>
+    <div class="service-order-form__fields">
+      <h4>Неисправности</h4>
+      <FaultList />
     </div>
   </div>
 </template>
@@ -80,6 +78,7 @@ const tab = ref(null);
 }
 
 .service-order-form__fields {
+  border-radius: 0px;
   background-color: white;
   padding: 8px;
 }

@@ -2,15 +2,15 @@
   <div class="field">
     <input class="field__input"
       :placeholder="placeholder"
-      :selectabl="isSelect"
-      :readonly="isSelect"
-      @click="select"
+      :selectable="isSelect"
+      :readonly="isSelect || readOnly"
+      @click="openList"
       :disabled="isDisabled"
       v-model="inputValue"
     >
     <div class="field__options">
       <div v-show="isLoading" class="loading-icon"></div>
-      <Arrow />
+      <!-- <Arrow /> -->
       <!-- @todo Добавлять новые опции поля -->
     </div>
     
@@ -18,9 +18,13 @@
 </template>
 
 <script setup>
-import Arrow from "@/shared/assets/icons/down-arrow.svg";
+import Arrow from "@/shared/ui/assets/icons/down-arrow.svg";
 
 const $props = defineProps({
+  readOnly: {
+    type: Boolean,
+    default: false
+  },
   isSelect: {
     type: Boolean,
     default: false
@@ -33,12 +37,13 @@ const $props = defineProps({
     type: Boolean,
     default: false
   },
-  placeholder: String
+  placeholder: String,
+  data: Object
 });
 
 const $emits = defineEmits(['input']);
 
-const inputValue = defineModel()
+const inputValue = defineModel();
 
 </script>
 

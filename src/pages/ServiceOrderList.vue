@@ -1,47 +1,22 @@
 <script setup lang="ts">
-import { useRouter,  } from 'vue-router'
-import { onMounted, ref, Ref } from 'vue';
 
-// import { axiosInstance } from '@/shared/api';
+import { storeToRefs } from 'pinia';
+import { useRouter, } from 'vue-router';
 import { useFilterStore } from "@/entities/filters";
-import Arrow from "@/shared/assets/icons/down-arrow.svg";
-// import OkSquared from '../shared/assets/icons/ok_squared.svg'
-// import CancelSquared from '../shared/assets/icons/cancel-squared.svg'
-
+import Arrow from "@/shared/ui/assets/icons/down-arrow.svg";
+import { useServiceOrderStore } from "@/entities/service-order"
 import {TaskList} from "@/widgets/task-list";
+// import { SelectField } from "@/shared/ui/field";
+import { ClientFilter, OrderTypeFilter } from "@/widgets/filters";
+
+const filterStore = useFilterStore();
+filterStore.initEntitiesFilters();
 
 const router = useRouter();
 
-interface OrderTaskTypes {
-  stageOrderPreparation: Array<any>;
-  stageEquipmentPreparation: Array<any>;
-  stageOrderCompletion: Array<any>;
-}
-
-interface ServiceOrderCard {
-  id: number;
-  name: string;
-  priority: number;
-  allFaultAmount: number;
-  openedFaultAmount: number;
-  clientName: string;
-  rootStorageName: string;
-  dateStart: string;
-  dateExecution: string;
-  dateStop: string;
-  contractorName: string;
-  tasks: OrderTaskTypes
-}
-
-const orders: Ref<Array<ServiceOrderCard>> = ref([]);
-
-onMounted(() => {
-  // axiosInstance.get('/main/pwa/service-order-list/', {
-  // }).then((r: any) => orders.value = r.data);
-  const filterStore = useFilterStore();
-  // console.log(filterStore);
-  filterStore.initEntitiesFilters()
-});
+const serviceOrderStore = useServiceOrderStore();
+serviceOrderStore.requestOrderList();
+const { orders } = storeToRefs(serviceOrderStore);
 
 function openServiceOrder(id: number) {
   router.push({
@@ -51,13 +26,18 @@ function openServiceOrder(id: number) {
     },
   })
 }
-
-
 </script>
 
 <template>
-  <div class="service-order-list">
-    <div class="service-order-list__header">Sorting <Arrow /></div>
+  <div class="page">
+    <div class="page__filters">
+      <ClientFilter />
+      <OrderTypeFilter />
+      <!-- <SelectField />
+      <SelectField /> -->
+    </div>
+    <div class="page__content service-order-list">
+      <div class="service-order-list__header">Sorting <Arrow /></div>
     <table class="service-order-list__list">
       <tr class="service-order-list__item" v-for="order in orders" :key="order.id" @click="openServiceOrder(order.id)">
         <td class="service-order-list__icon">
@@ -94,7 +74,7 @@ function openServiceOrder(id: number) {
         <td class="table-field">
           <span class="table-field__name">Подготовка оборудования</span>
           <span class="table-field__value">
-            <!-- <TaskList :taskList="order.tasks.stageEquipmentPreparation" /> -->
+            <TaskList :taskList="order.tasks.stageEquipmentPreparation" />
           </span>
         </td>
         <td class="table-field">
@@ -104,7 +84,7 @@ function openServiceOrder(id: number) {
         <td class="table-field">
           <span class="table-field__name">Завершение заявки</span>
           <span class="table-field__value">
-            <!-- <TaskList :taskList="order.tasks.stageOrderCompletion" /> -->
+            <TaskList :taskList="order.tasks.stageOrderCompletion" />
           </span>
         </td>
         <td class="table-field">
@@ -113,6 +93,7 @@ function openServiceOrder(id: number) {
         </td>
       </tr>
     </table>
+    </div>
   </div>
 </template>
 

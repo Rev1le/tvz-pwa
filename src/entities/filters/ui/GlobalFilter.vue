@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import Arrow from "@/shared/assets/icons/down-arrow.svg";
+import Arrow from "@/shared/ui/assets/icons/down-arrow.svg";
 import { ref } from 'vue';
 
 </script>

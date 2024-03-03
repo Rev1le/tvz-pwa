@@ -1,23 +1,20 @@
 import { defineStore } from 'pinia'
 
-import { axiosInstance } from "@/shared/api";
+import {getAllFilters} from '../api';
 
 export const useFilterStore = defineStore("filter", {
   state: () => {
     return {
       values: {},
-      filters: {
-        client: {
-          isEnabled: false,
-          entities: {
-            1: { name: "Клиент1" },
-            2: { name: "Клиент2" },
-          },
-        },
-      },
+      filters: {},
+      enabledFilters: []
     };
   },
   actions: {
+    setFilterValue(filterKey, value) {
+      console.log(filterKey, value);
+      this.values[filterKey] = value;
+    },
     enableFilter(filterId) {
       if (!this.filters[filterId]) {
         return fakse;
@@ -26,23 +23,34 @@ export const useFilterStore = defineStore("filter", {
       this.filters[filterId].isEnabled = filter;
     },
     async initEntitiesFilters() {
-      // const reqUrl = "/vue-global-filter/division-tree/";
-      // const response = await axiosInstance.get(reqUrl);
-      // console.log(response);
+      // @todo filters
+      this.filters = await getAllFilters();
     },
+    /**
+     * Выбрать фильтры, которые будут отображаться
+     * @param {Array<string>} selectedFilterList 
+     */
+    selectFilters(selectedFilterList) {
+      this.enabledFilters = selectedFilterList;
+    }
   },
   getters: {
-    getEnabedFilters: (state) => {
-      const enabledFilters = {};
+    /**
+     * Включенные фильтры на страницу
+     * @param {any} state 
+     * @returns {object}
+     */
+    enabedFilters: (state) => {
+      const enabledFilterSet = new Set(state.enabledFilters);
+      let enabled = {};
 
       for (const filterId in state.filters) {
-        const filter = state.filters[filterId];
-        if (filter.isEnabled) {
-          enabledFilters[filterId] = filter;
+        if (enabledFilterSet.has(filterId)) {
+          enabled[filterId] = state.filters[filterId];
         }
       }
 
-      return enabledFilters;
+      return enabled;
     },
   },
 });

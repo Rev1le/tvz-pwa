@@ -1,7 +1,6 @@
-import { createApp, provide } from 'vue'
+import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { router } from './providers/router';
-import { axiosInstance } from '../shared/api';
 import App from "./App.vue"
 
 const isDevMode = import.meta.env.MODE === 'development';
@@ -21,7 +20,5 @@ if ('serviceWorker' in navigator && !isDevMode) {
     );
   });
 }
-
-vueApp.config.globalProperties.$axios = axiosInstance;
 
 export default vueApp;

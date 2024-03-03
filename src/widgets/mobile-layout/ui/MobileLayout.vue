@@ -1,16 +1,9 @@
 <script setup lang="ts">
 import { inject } from 'vue';
-import { InputField } from "@/entities/field";
 import AppStatusIcon from '@/features/AppStatusIcon.vue';
-// import TButton from '../shared/ui-kit/Button.vue';
 
 let appStore: any = inject('appStore')
 appStore = appStore();
-
-const filters = [
-  'storage',
-  'orders'
-];
 
 </script>
 
@@ -28,20 +21,11 @@ const filters = [
       {{ appStore.isOnlineMode ? 'Online' : 'Offline' }}
     </div>
   </header>
-  <main>
-    <div class="mobile-layout__filters">
-      <InputField placeholder="Выберите площадку" :key="filter" v-for="filter in filters" />
-    </div>
-    
-    <div class="mobile-layout__page-content">
-      <slot name="content"></slot>
-
-      <!-- <t-button :disabled="false">ffafaf</t-button> -->
-    </div>
-
+  <main class="mobile-layout__content">
+    <slot name="content"></slot>
   </main>
   <footer>
-
+    <!-- @todo -->
   </footer>
 </div>
 </template>
@@ -108,10 +92,11 @@ const filters = [
     flex-direction: column;
   }
 
-  &__page-content {
+  &__content {
     flex: 1;
 
-    padding: 10px;
+    // padding: 10px;
+    // padding-top: 0px;
     border-radius: 0px;
     background-color: #F0F2F8;
     // background-color: #F0F2F8; //#D9E0F5;
