@@ -20,16 +20,8 @@ const tab = ref(null);
     <div class="service-order-form__fields common-labels">
       <div class="common-labels__labels">
         <div class="label">
-          <span class="label__title">Приоритет:</span>
-          <span class="label__value">Низкий</span>
-        </div>
-        <div class="label">
           <span class="label__title">Клиент:</span>
           <span class="label__value">Леруа Мерлен</span>
-        </div>
-        <div class="label">
-          <span class="label__title">Постгарантийный период:</span>
-          <span class="label__value">отустствует</span>
         </div>
         <div class="label">
           <span class="label__title">Площадка:</span>
@@ -39,18 +31,21 @@ const tab = ref(null);
           <span class="label__title">Адрес:</span>
           <span class="label__value"></span>
         </div>
-
-        
       </div>
       <div class="common-labels__link-btn-list">
-        <span class="link-btn"><FolderOpenEmpty /></span>
         <span class="link-btn"><DocText /></span>
         <span class="link-btn"><LinkExt /></span>
       </div>
-
     </div>
 
     <div class="service-order-form__fields">
+      <h3>Список техники</h3>
+      <div class="service-order-form__car-list">
+        <div class="service-order-form__car-item">fsdfsffsf</div>
+      </div>
+    </div>
+
+    <!-- <div class="service-order-form__fields">
       <FieldGroup>
         <template v-slot:fields>
           <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 10px;">
@@ -64,7 +59,7 @@ const tab = ref(null);
     <div class="service-order-form__fields">
       <h4>Неисправности</h4>
       <FaultList />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -76,6 +71,8 @@ const tab = ref(null);
   justify-content: center;
   gap: 10px;
 }
+
+
 
 .service-order-form__fields {
   border-radius: 0px;
@@ -126,5 +123,17 @@ const tab = ref(null);
   flex-direction: column;
   justify-content: space-around;
   gap: 5px;
+}
+
+
+.service-order-form__car-list {
+
+}
+
+.service-order-form__car-item {
+  box-shadow:
+    0 .7px 1.4px rgba(0,0,0,.07),
+    0 1.9px 4px rgba(0,0,0,.05),
+    0 4.5px 10px rgba(0,0,0,.05);
 }
 </style>

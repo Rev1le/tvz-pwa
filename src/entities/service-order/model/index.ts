@@ -11,16 +11,16 @@ interface OrderTaskTypes {
 interface ServiceOrderCard {
   id: number;
   name: string;
-  priority: number;
+  // priority: number;
   allFaultAmount: number;
   openedFaultAmount: number;
   clientName: string;
   rootStorageName: string;
-  dateStart: string;
-  dateExecution: string;
-  dateStop: string;
-  contractorName: string;
-  tasks: OrderTaskTypes
+  // dateStart: string;
+  // dateExecution: string;
+  // dateStop: string;
+  // contractorName: string;
+  // tasks: OrderTaskTypes
 }
 
 type StoreState = {
