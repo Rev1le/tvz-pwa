@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath } from 'node:url';
 import svgLoader from 'vite-svg-loader';
 
-const PROXY_URL = "http://127.0.0.1:5000"; //"http://fi01.abc.tvz"
+const PROXY_URL = "http://fi01.abc.tvz"; //"http://127.0.0.1:5000";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -32,6 +32,11 @@ export default defineConfig({
         secure: false,
       },
       "/vue-global-filter": {
+        target: PROXY_URL,
+        changeOrigin: true,
+        secure: false,
+      },
+      "/support": {
         target: PROXY_URL,
         changeOrigin: true,
         secure: false,

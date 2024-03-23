@@ -10,6 +10,10 @@
   @include spread-map($theme-map-tvz);
 }
 
+:root {
+  @include spread-map($theme-map-tvz);
+}
+
 // :root[theme=dark] {
 //   @include spread-map($theme-map-dark);
 // }

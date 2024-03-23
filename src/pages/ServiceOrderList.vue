@@ -5,7 +5,7 @@ import { useRouter, } from 'vue-router';
 import { useFilterStore } from "@/entities/filters";
 import Arrow from "@/shared/ui/assets/icons/down-arrow.svg";
 import { useServiceOrderStore, ServiceOrderTableRow } from "@/entities/service-order"
-import {TaskList} from "@/widgets/task-list";
+// import {TaskList} from "@/widgets/task-list";
 // import { SelectField } from "@/shared/ui/field";
 import { ClientFilter, OrderTypeFilter } from "@/widgets/filters";
 
@@ -46,6 +46,7 @@ function openServiceOrder(id: number) {
       </div>
     <table class="service-order-list__list">
       <ServiceOrderTableRow
+        class="service-order-list__item"
         v-for="order in orders"
         :key="order.id"
         :order="order"
@@ -126,6 +127,10 @@ function openServiceOrder(id: number) {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+}
+
+.service-order-list__item {
+  margin: 10px 0px;
 }
 
 .service-order-list__header {

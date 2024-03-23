@@ -5,9 +5,18 @@ import DocText from "@/shared/ui/assets/icons/doc-text.svg";
 import { Tabs } from '@/widgets/tabs';
 import { FaultList } from '@/widgets/fault/fault-list';
 import { FieldGroup } from '@/entities/field-group';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import { storeToRefs } from "pinia";
+import { useRoute } from 'vue-router';
 import { FormField, InputField } from "@/shared/ui/field";
 
+import { useFaultStore, FaultTableRow } from '@/entities/fault';
+
+const faultStore = useFaultStore();
+const route = useRoute();
+faultStore.receiveOrderFaults(route.query.orderId);
+
+const {faults} = storeToRefs(faultStore);
 
 const tab = ref(null);
 
@@ -40,9 +49,21 @@ const tab = ref(null);
 
     <div class="service-order-form__fields">
       <h3>Список техники</h3>
-      <div class="service-order-form__car-list">
-        <div class="service-order-form__car-item">fsdfsffsf</div>
-      </div>
+      <table class="service-order-form__fault-list">
+        <FaultTableRow
+          v-for="fault in faults[route.query.orderId]"
+          :fault="fault"
+          :key="fault.id"
+        />
+      </table>
+      <!-- <div class="service-order-form__car-list">
+        <FaultTableRow />
+        <div
+          class="service-order-form__car-item"
+          v-for="fault in faults[route.query.orderId]">
+          {{ fault.carName }}
+        </div>
+      </div> -->
     </div>
 
     <!-- <div class="service-order-form__fields">
@@ -127,7 +148,13 @@ const tab = ref(null);
 
 
 .service-order-form__car-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
+.service-order-form__fault-list {
+  width: 100%;
 }
 
 .service-order-form__car-item {
@@ -135,5 +162,7 @@ const tab = ref(null);
     0 .7px 1.4px rgba(0,0,0,.07),
     0 1.9px 4px rgba(0,0,0,.05),
     0 4.5px 10px rgba(0,0,0,.05);
+
+  padding: 5px;
 }
 </style>
