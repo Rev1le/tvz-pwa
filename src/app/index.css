@@ -1,5 +1,5 @@
-@import "/src/shared/styles/_global.scss";
-@import "/src/shared/styles/_theme.scss";
+@import "/src/shared/styles/global/_index.scss";
+@import "/src/shared/styles/theme/_index.scss";
 
 #app {
   background-color: white;

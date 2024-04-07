@@ -5,7 +5,7 @@ import DocText from "@/shared/ui/assets/icons/doc-text.svg";
 import { Tabs } from '@/widgets/tabs';
 import { FaultList } from '@/widgets/fault/fault-list';
 import { FieldGroup } from '@/entities/field-group';
-import { ref, computed } from 'vue';
+import { ref, computed, provide, inject } from 'vue';
 import { storeToRefs } from "pinia";
 import { useRoute } from 'vue-router';
 import { FormField, InputField } from "@/shared/ui/field";
@@ -20,11 +20,22 @@ const {faults} = storeToRefs(faultStore);
 
 const tab = ref(null);
 
+// const $props = defineProps({
+//   store: {
+//     default: () => ({})
+//   }
+// });
+
+// provide('appStore', $props.store);
+
+
+// const db = inject('appStore');
+//   console.log('ddd', db);
+
 </script>
 
 <template>
   <div class="service-order-form">
-    
     <Tabs @changeTab="tab = $event" />
     <div class="service-order-form__fields common-labels">
       <div class="common-labels__labels">
@@ -51,9 +62,9 @@ const tab = ref(null);
       <h3>Список техники</h3>
       <table class="service-order-form__fault-list">
         <FaultTableRow
-          v-for="fault in faults[route.query.orderId]"
-          :fault="fault"
-          :key="fault.id"
+          v-for="(fault, index) in faults[route.query.orderId]"
+          :value="{...fault, id: index+1 }"
+          :key="index"
         />
       </table>
       <!-- <div class="service-order-form__car-list">

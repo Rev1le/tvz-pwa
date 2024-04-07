@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 
 export const useAppStore = defineStore('app', {
     state: () => ({
-        isOnlineMode: true
+        isOnlineMode: true,
+        db: null
     }),
     getters: {
     },

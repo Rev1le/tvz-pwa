@@ -34,7 +34,7 @@ div, span, button {
 }
 
 // input
-@import "./global-attrs/input";
+@import "./input";
 
 //link
 a {
@@ -50,6 +50,8 @@ button.link-btn, span.link-btn {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  border: none;
 
   @include types();
 }

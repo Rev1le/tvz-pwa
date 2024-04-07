@@ -3,10 +3,11 @@ import { MobileLayout } from '@/widgets/mobile-layout';
 import { useAppStore } from './providers/store'
 import { provide, onMounted } from 'vue'
 import { axiosInstance } from '../shared/api';
+import { dbPromise } from './providers/db';
 
 provide('appStore', useAppStore);
-
 provide('axios', axiosInstance);
+provide('dbPromise', dbPromise);
 
 onMounted(() => {
   axiosInstance.get('/main/pwa/app-version/', {

@@ -5,7 +5,7 @@
     "display": "standalone",
     "display_override": "standalone",
     "background_color": "#fff",
-    "description": "PWA for service installer.",
+    "description": "PWA for service installer",
     "icons": [
         {
             "src": "vite.svg",
