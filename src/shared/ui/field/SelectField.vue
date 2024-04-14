@@ -1,15 +1,19 @@
 <template>
-  <div class="select-field">
+  <div
+    tabindex="-1"
+    ref="selectRef"
+    class="select-field"
+    @focusin="focusIn"
+    @focusout="focusOut"
+  >
     <div class="field">
       <input
         class="field__input"
         :placeholder="placeholder"
         selectable
         readonly
-        @click="isOpenDropDown = !isOpenDropDown"
         :disabled="isDisabled"
         v-model="inputValue">
-      <!-- <div v-for="(value, key) in options">{{ value }}</div> -->
       <div class="field__options">
         <div v-show="isLoading" class="loading-icon"></div>
         <Arrow v-show="!isLoading" />
@@ -54,9 +58,17 @@ const searchValue = ref(null);
 
 const isOpenDropDown = ref(false);
 
-function openList() {
+const selectRef = ref(null);
 
-}
+const focusIn = () => {
+  isOpenDropDown.value = true;
+};
+
+const focusOut = (event) => {
+  if (!event.relatedTarget) {
+    isOpenDropDown.value = false;
+  }
+};
 
 </script>
 
@@ -95,6 +107,9 @@ function openList() {
   max-height: 200px;
   overflow-y: scroll;
   min-height: min-content;
+
+  border-radius: 0;
+
   // padding-bottom: 16px;
   
   &:focus {

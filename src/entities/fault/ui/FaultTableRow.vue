@@ -1,13 +1,15 @@
 <script setup>
 import { storeToRefs } from 'pinia';
-import { ref, inject, computed, onMounted } from 'vue';
+import { ref, inject, computed, onMounted, watch, reactive } from 'vue';
 import { axiosInstance } from "@/shared/api";
 import ImageSlider from '@/shared/ui/image-slider/ImageSlider.vue';
 
 import { openDB } from 'idb';
 import { prepareFileForDb } from "@/shared/lib/db";
 
-import { DB_STORE_NAME, getStoreTransaction, useFaultStore } from "@/entities/fault";
+import { STORE_NAME as DB_STORE_NAME, getStoreTransaction, useFaultStore } from "@/entities/fault";
+
+import ModalDialog from  '@/shared/ui/modal/ModalDialog.vue';
 
 const dbPromise = inject('dbPromise');
 
@@ -18,35 +20,9 @@ const $props = defineProps({
 })
 
 const faultStore = useFaultStore();
-const { images, dbImagesUrlList } = storeToRefs(faultStore);
-
-// const allFaultImages = computed(() => {
-//   console.log(dbImagesUrlList);
-//   const dbImages = dbImagesUrlList($props.value.id);
-//   const valueImages = $props.value.images;
-//   return [...valueImages, ...dbImages];
-// });
-
-function openCamera() {
-  console.log(navigator.mediaDevices);
+const { faultImages, dbImagesUrlList } = storeToRefs(faultStore);
 
 
-  // if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {  
-  //   console.log("enumerated devices not supported");  
-  //   return; 
-  // } 
-
-  // navigator.mediaDevices
-  //   .getUserMedia({ video: true, audio: false })
-  //   .then((stream) => {
-  //     console.log(stream)
-  //     // video.srcObject = stream;
-  //     // video.play();
-  //   })
-  //   .catch((err) => {
-  //     console.error(`An error occurred: ${err}`);
-  //   });
-}
 
 function prepareImageUrl(image) {
   return image
@@ -74,13 +50,21 @@ function prepareImageUrl(image) {
 
 const dbImages = ref([]);
 
+watch(
+  reactive($props.value),
+  (newValue) => {
+    dbImages.value = [...dbImages.value, ...newValue.images];
+    console.log(newValue);
+  },
+  { immediate: true }
+);
+
 
 onMounted(async () => {
   const db = await dbPromise;
-
   const dbImagesUrlList2 = await faultStore.dbImagesUrlList($props.value.id, db);
 
-  dbImages.value = dbImagesUrlList2;
+  dbImages.value = [...dbImages.value, ...dbImagesUrlList2];
 })
 
 
@@ -90,16 +74,11 @@ async function saveImg(event) {
   const db = await dbPromise;
 
   const store = getStoreTransaction(db, 'readwrite');
-  store.add(file);
-  console.log(file.name);
-  console.log($props.value.id);
-  faultStore.setFaultDbImage($props.value.id, file.name);
+  const result = await store.add(file);
 
-  // console.log(faultStore.dbImagesUrlList);
+  faultStore.setFaultDbImage($props.value.id, result);
+
   const dbImagesUrlList2 = await faultStore.dbImagesUrlList($props.value.id, db);
-
-  console.log(dbImagesUrlList2);
-
   dbImages.value = dbImagesUrlList2;
 
   return;
@@ -171,6 +150,9 @@ async function loadImg() {
   const store = getStoreTransaction(db);
 }
 
+const activeModal = ref(false);
+
+const modalWindow = ref(null);
 
 const allImages = ref([]);
 
@@ -179,6 +161,23 @@ async function clearIndexedDB() {
   const store = getStoreTransaction(db, 'readwrite');
   console.log('rerere')
   store.clear();
+}
+
+function closeFault() {
+  activeModal.value = !activeModal.value;
+}
+
+async function uploadImages() {
+  const db = await dbPromise;
+  const store = getStoreTransaction(db, 'readwrite');
+  faultStore.receiveImages();
+  const images = faultStore.images[$props.value.id];
+  for (const image of images) {
+    const dbImage = await store.get(image)
+    console.log(dbImage);
+    console.log('d', await store.delete(image));
+  }
+  // console.log(images);
 }
 
 </script>
@@ -215,9 +214,12 @@ async function clearIndexedDB() {
     </tr>
     <td class="table-cell"></td>
     <td class="table-cell">
-      <span class="link-btn fault-tr__close-btn is-danger">EXIT</span>
+      <span @click="closeFault" class="link-btn fault-tr__close-btn is-danger">EXIT</span>
     </td>
   </tr>
+  <ModalDialog v-model="activeModal">
+    <button @click="uploadImages">Выгрузить фотографии в облако?</button>
+  </ModalDialog>
 </template>
 
 <style>

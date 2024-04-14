@@ -1,22 +1,33 @@
-import { defineConfig } from 'vite'
 import { resolve } from 'path';
+import { defineConfig, loadEnv  } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { fileURLToPath } from 'node:url';
 import svgLoader from 'vite-svg-loader';
+import basicSsl from '@vitejs/plugin-basic-ssl'
 
-const PROXY_URL = "http://127.0.0.1:5000"; //"http://fi01.abc.tvz"; //
+const env = loadEnv('all', process.cwd());
 
-// https://vitejs.dev/config/
+const PROXY_URL = env.VITE_PROXY_URL ?? 'http://fi01.abc.tvz';
+
 export default defineConfig({
-  plugins: [vue(), svgLoader()],
-  // base: "/pwa/",
+  plugins: [
+    vue(),
+    svgLoader(),
+    basicSsl({
+      name: 'localhost',
+      domains: ['192.168.0.229'],
+      certDir: './cert'
+    })
+  ],
   build: {
-    emptyOutDir: false,
     rollupOptions: {
       input: {
         index: resolve(__dirname, "index.html"),
+        'service-worker': './service-worker.js',
       },
-      // output: { assetFileNames: "pwa/assets/[name]-[hash][extname]" },
+      output: {
+        format: 'es',
+        entryFileNames: '[name].js'
+      }
     },
   },
   preview: {
@@ -24,6 +35,7 @@ export default defineConfig({
     strictPort: true,
   },
   server: {
+    https: true,
     proxy: {
       "/main": {
         target: PROXY_URL,

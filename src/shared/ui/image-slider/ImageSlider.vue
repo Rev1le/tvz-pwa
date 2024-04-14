@@ -7,8 +7,6 @@ const $props = defineProps({
 
 const currentImageIndex = ref(0);
 
-// const countImages = ref($props.value.length -1);
-
 const countImages = computed(() => {
   return $props.value.length;
 });
@@ -29,7 +27,6 @@ function changeImage(swipeState) {
     }
   }
 }
-
 </script>
 
 <template>

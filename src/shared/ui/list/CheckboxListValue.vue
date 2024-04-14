@@ -4,24 +4,9 @@ import { ref } from 'vue';
 const $emits = defineEmits(['click']);
 
 const $props = defineProps({
-  isSelect: {default: false},
+  isSelect: { default: false },
   value: Object
 })
-
-// const $props = defineProps(['value'])
-
-// 👇 Emit the update to the parent
-// const $emits = defineEmits(['update:value'])
-
-// const isSelect = computed(() => {
-
-// });
-
-// const isSelect = defineModel('isSelect');
-
-// function updateState() {
-//   isSelect.value = !isSelect.value;
-// }
 
 </script>
 
@@ -65,6 +50,9 @@ const $props = defineProps({
 
 <style lang="scss">
 .checkbox-list-value {
+  border-radius: 0;
+
+
   padding: 8px 16px;
   flex-grow: 1;
 

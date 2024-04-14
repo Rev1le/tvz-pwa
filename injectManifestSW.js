@@ -19,5 +19,3 @@ const injectManifestOptions = {
 };
 
 injectManifest(injectManifestOptions).catch(e => console.error(e));
-
-

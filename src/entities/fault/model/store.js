@@ -16,18 +16,18 @@ export const useFaultStore = defineStore('faultStore', {
     }
   },
   getters: {
+    faultImages(state) {
+      return (faultId) => state.images[faultId];
+    },
     dbImagesUrlList(state) {
       return async (faultId, db) => {
-        // const db = await dbPromise;
-        // console.log(db);
-        // return [];
         const faultImages = state.images[faultId] ?? [];
         const store = getStoreTransaction(db);
 
         const urlList = [];
-        const values = await store.getAll()
 
-        for (const value of values) {
+        for (const faultImageId of faultImages) {
+          const value = await store.get(faultImageId);
           const imageBlog = new Blob([value.data]);
           const src = URL.createObjectURL(imageBlog);
 
@@ -43,15 +43,7 @@ export const useFaultStore = defineStore('faultStore', {
       // @todo filters
       this.faults[orderId] = await getOrderFaults(orderId);
     },
-    retrieveImages(faultId, imageKey) {
-
-      if (!this.images[faultId]) {
-        this.images[faultId] = [];
-      }
-
-      this.images[faultId].push(imageKey);
-    },
-    loadFromLocalStorage() {
+    receiveImages() {
       let images = localStorage.getItem(FAULT_IMAGE_KEY);
       
       if (!images) {
@@ -61,12 +53,12 @@ export const useFaultStore = defineStore('faultStore', {
 
       this.images = JSON.parse(images);
     },
-    setFaultDbImage(faultId, imageName) {
+    setFaultDbImage(faultId, imageId) {
       if (!this.images[faultId]) {
         this.images[faultId] = [];
       }
 
-      this.images[faultId].push(imageName);
+      this.images[faultId].push(imageId);
 
       localStorage.setItem(FAULT_IMAGE_KEY, JSON.stringify(this.images));
     }

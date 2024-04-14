@@ -12,6 +12,6 @@ export {
   FaultTableRow,
   useFaultStore,
   createDbStore,
-  STORE_NAME as DB_STORE_NAME,
+  STORE_NAME,
   getStoreTransaction
 }

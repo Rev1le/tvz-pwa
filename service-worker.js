@@ -1,12 +1,8 @@
 const PRECACHE = 'precache-v1';
 const RUNTIME = 'runtime';
 
-// A list of local resources we always want to be cached.
 const PRECACHE_URLS = self.__WB_MANIFEST;
 
-console.log('pls');
-
-// The install handler takes care of precaching the resources we always need.
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(PRECACHE)
@@ -55,10 +51,10 @@ self.addEventListener('fetch', event => {
   }
 });
 
-import {registerRoute} from 'workbox-routing';
-import {CacheFirst} from 'workbox-strategies';
+// import {registerRoute} from 'workbox-routing';
+// import {CacheFirst} from 'workbox-strategies';
 
-registerRoute(
-  ({url}) => url.pathname.startsWith('/posts'),
-  new CacheFirst()
-);
+// registerRoute(
+//   ({url}) => url.pathname.startsWith('/main/pwa/'),
+//   new CacheFirst()
+// );

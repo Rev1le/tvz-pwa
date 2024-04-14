@@ -1,15 +1,16 @@
 {
   "name": "tvz-pwa",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite --debug --host",
     "preview": "vite preview --host",
     "build": "run-p build:*",
-    "build:app": "vite build",
-    "build:sw": "vite build -c vite.sw.config.js && node ./injectManifestSW.js",
-    "font-svg": "fontello-svg --config ./fontello/config.json --out ./fontello/icons"
+    "build:app": "vite build && npm run build:injectAssets",
+    "builda:sw": "vite build -c vite.sw.config.js && npm run build:injectAssets",
+    "font-svg": "fontello-svg --config ./fontello/config.json --out ./fontello/icons",
+    "build:injectAssets": "node ./injectManifestSW.js"
   },
   "dependencies": {
     "axios": "^1.6.7",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
     "@vitejs/plugin-vue": "^5.0.3",
     "fontello-svg": "^0.5.0",
     "npm-run-all": "^4.1.5",
