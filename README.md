@@ -1,6 +1,6 @@
 
 ### Сборка Docker контейнера
-`podman build -t tvz-pwa -f .\docker\Dockerfile .`
+`docker build -t tvz-pwa -f .\docker\Dockerfile .`
 
 ### Запуск Dcoker контейнера
-`podman run -p 127.0.0.1:80:4173/tcp localhost/tvz-pwa`
+`docker run -p 127.0.0.1:80:4173/tcp localhost/tvz-pwa`

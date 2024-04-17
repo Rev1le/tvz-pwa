@@ -2,10 +2,6 @@ import { defineStore } from "pinia";
 
 import { getOrderFaults } from '../api';
 
-import { getStoreTransaction } from './db';
-
-import { inject } from 'vue';
-
 const FAULT_IMAGE_KEY = 'fault-image';
 
 export const useFaultStore = defineStore('faultStore', {
@@ -15,43 +11,27 @@ export const useFaultStore = defineStore('faultStore', {
       images: {}
     }
   },
-  getters: {
-    faultImages(state) {
-      return (faultId) => state.images[faultId];
-    },
-    dbImagesUrlList(state) {
-      return async (faultId, db) => {
-        const faultImages = state.images[faultId] ?? [];
-        const store = getStoreTransaction(db);
-
-        const urlList = [];
-
-        for (const faultImageId of faultImages) {
-          const value = await store.get(faultImageId);
-          const imageBlog = new Blob([value.data]);
-          const src = URL.createObjectURL(imageBlog);
-
-          urlList.push(src);
-        }
-
-        return urlList;
-      }
-    },
-  },
+  getters: { },
   actions: {
     async receiveOrderFaults(orderId) {
       // @todo filters
       this.faults[orderId] = await getOrderFaults(orderId);
     },
-    receiveImages() {
+    receiveFaultsImages() {
       let images = localStorage.getItem(FAULT_IMAGE_KEY);
       
       if (!images) {
-        localStorage.setItem(FAULT_IMAGE_KEY, {});
         this.images = {};
+        localStorage.setItem(FAULT_IMAGE_KEY, JSON.stringify(this.images));
+        return;
       }
-
-      this.images = JSON.parse(images);
+      try {
+        this.images = JSON.parse(images);
+      } catch (e) {
+        // Если не валидный объект, то копируем значение и ставим валидный новый 
+        localStorage.setItem("__" + FAULT_IMAGE_KEY, JSON.stringify(this.images));
+        localStorage.setItem(FAULT_IMAGE_KEY, JSON.stringify({}));
+      }
     },
     setFaultDbImage(faultId, imageId) {
       if (!this.images[faultId]) {
@@ -61,13 +41,10 @@ export const useFaultStore = defineStore('faultStore', {
       this.images[faultId].push(imageId);
 
       localStorage.setItem(FAULT_IMAGE_KEY, JSON.stringify(this.images));
+    },
+    deleteImageId(faultId, imageId) {
+      this.images[faultId] = this.images[faultId].filter(el => el != imageId);
+      localStorage.setItem(FAULT_IMAGE_KEY, JSON.stringify(this.images));
     }
-    // saveImageFile(faultId, file) {
-    //   const file = await prepareFileForDb(file);
-    //   const db = await dbPromise;
-
-    //   const store = getStoreTransaction(db, 'readwrite');
-    //   store.add(file);
-    // }
   }
 });

@@ -23,11 +23,16 @@ watch(
   </dialog>
 </template>
 
-<style>
+<style lang="scss">
+
+$button-side-size: 2rem;
+$content-padding: 8px;
+
+
 .modal {
   border-width: 0;
   background-color: white;
-  padding: 8px;
+  padding: $content-padding;
   box-shadow:
     0 .7px 1.4px rgba(0,0,0,.07),
     0 1.9px 4px rgba(0,0,0,.05),
@@ -35,7 +40,7 @@ watch(
   border-radius: 4px;
 
   margin: auto;
-  height: 850vh;
+  height: 85vh;
   width: 80vh;
 }
 
@@ -44,8 +49,8 @@ watch(
 }
 
 .modal__close-btn {
-  width: 2rem;
-  height: 2rem;
+  width: $button-side-size;
+  height: $button-side-size;
 
   position: absolute;
   right: 8px;
@@ -63,6 +68,6 @@ watch(
 }
 
 .modal__content {
-  margin-top: calc(2rem + 8px);
+  margin-top: calc($button-side-size + $content-padding);
 }
 </style>

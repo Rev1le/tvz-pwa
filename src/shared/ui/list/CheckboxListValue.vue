@@ -66,12 +66,12 @@ const $props = defineProps({
   align-items: center;
 
   &:hover {
-    background-color: rgb(240, 242, 248);
+    background-color: var(--theme-background); //#f0f2f8;
   }
 }
 
 .selected {
   background-origin: padding-box;
-  background-color: rgb(240, 242, 248);
+  background-color: var(--theme-background); //rgb(240, 242, 248);
 }
 </style>
