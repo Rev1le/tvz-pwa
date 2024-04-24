@@ -11,15 +11,14 @@ vueApp.use(router);
 
 // Регестрируем `serviceWorker` и устанавливаем объектов во Vue приложение
 if ('serviceWorker' in navigator && !isDevMode) {
-  const { wb } = await import('./providers/service-worker');
-  wb.register()
-      .then(
-        (sw: any) => {
-          vueApp.config.globalProperties.$serviceWorkerRegistration = sw
-          vueApp.config.globalProperties.$workbox = wb
-        }
-      )
+  import('./providers/service-worker').then(({wb}) => {
+    wb.register()
+      .then((sw: any) => {
+        vueApp.config.globalProperties.$serviceWorkerRegistration = sw
+        vueApp.config.globalProperties.$workbox = wb
+      })
       .catch(e => console.log("SW ERROR: ", e));
+  });
 }
 
 export default vueApp;
