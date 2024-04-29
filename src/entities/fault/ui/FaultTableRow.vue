@@ -1,11 +1,6 @@
 <script setup>
-import { storeToRefs } from 'pinia';
 import { ref, inject, computed, onMounted, watch, reactive } from 'vue';
-import { axiosInstance } from "@/shared/api";
 import ImageSlider from '@/shared/ui/image-slider/ImageSlider.vue';
-
-import { openDB } from 'idb';
-import { prepareFileForDb } from "@/shared/lib/db";
 
 import { STORE_NAME as DB_STORE_NAME, getStoreTransaction, useFaultStore } from "@/entities/fault";
 import { saveImage, getDbImagesUrlList, retrieveFaultImages } from "../model";

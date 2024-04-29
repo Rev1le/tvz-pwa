@@ -1,21 +1,36 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { computed, inject } from 'vue';
 import AppStatusIcon from '@/features/AppStatusIcon.vue';
+import { useRoute, useRouter } from 'vue-router';
+import SideMenu from "@/shared/ui/side-menu";
 
 let appStore: any = inject('appStore')
 appStore = appStore();
+
+const route = useRoute();
+const router = useRouter()
+
+const menuItemsList = computed(() => router.options.routes
+  .filter(el=>el?.meta?.label)
+  .map(el => ({
+    label: el?.meta?.label,
+    path: el.path
+  }))
+);
 
 </script>
 
 <template>
 <div class="mobile-layout">
   <header class="mobile-layout__header">
-    <div class="mobile-layout__hamburger-menu">
-      <div class="menu-line"></div>
-      <div class="menu-line"></div>
-      <div class="menu-line"></div>
-    </div>
-    <h1>Заявки</h1>
+    <SideMenu>
+      <div class="side-menu__content">
+        <router-link v-for="item in menuItemsList" :to="item.path" class="menu-item">
+          {{ item.label }}
+        </router-link>
+      </div>
+    </SideMenu>
+    <h1>{{route?.meta?.label}}</h1>
     <div class="mobile-layout__app-status">
       <app-status-icon />
       {{ appStore.isOnlineMode ? 'Online' : 'Offline' }}
@@ -37,6 +52,9 @@ appStore = appStore();
   
   display: flex;
   flex-direction: column;
+
+  position: relative;
+
   & header {
     padding: 10px;
     padding-bottom: 10px;
@@ -57,20 +75,6 @@ appStore = appStore();
 
   & footer {
 
-  }
-
-  &__hamburger-menu {
-    height: 40px;
-    width: 40px;
-
-    background-blend-mode: normal;
-    box-shadow: 0px 2px 4px rgba(100, 100, 100, 0.5);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4px;
   }
 
   &__app-status {
@@ -95,27 +99,26 @@ appStore = appStore();
   &__content {
     flex: 1;
 
-    // padding: 10px;
-    // padding-top: 0px;
     border-radius: 0px;
     background-color: #F0F2F8;
-    // background-color: #F0F2F8; //#D9E0F5;
   }
 }
 
 h1 {
-  // height: 38px;
-  // font-size: 30px;
-  // font-weight: bo;
   line-height: 36px;
 }
 
-.menu-line {
-  width: 20px;
-  height: 2px;
-  background-color: #296cee;
+.menu-item {
+  background-color: var(--theme-background);
+  padding: 12px 8px;
   border-radius: 0px;
+  display: block;
+  text-decoration: none;
+  color: var(--theme-text);
+  font-size: 20px;
 
-  // border: 1px solid #296cee;
+  &:not(:last-child) {
+    margin-top: 10px;
+  }
 }
 </style>

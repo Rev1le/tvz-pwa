@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import {catchResponse} from "@/shared/lib/logger";
 import { MobileLayout } from '@/widgets/mobile-layout';
 import { useAppStore } from './providers/store'
 import { provide, onMounted } from 'vue'
@@ -10,8 +11,9 @@ provide('axios', axiosInstance);
 provide('dbPromise', dbPromise);
 
 onMounted(() => {
-  axiosInstance.get('/main/pwa/app-version/', {
-  }).then((r: any) => console.log(r.data));
+  axiosInstance.get('/main/pwa/app-version/', {})
+    .then((r: any) => console.log(r.data))
+    .catch(catchResponse);
 });
 
 

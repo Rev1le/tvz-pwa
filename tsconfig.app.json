@@ -2,6 +2,7 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["env.d.ts", "src", "auto-imports.d.ts"],
   "exclude": ["src/**/__tests__/*"],
+  "target": "ES2020",
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",
