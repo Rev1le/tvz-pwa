@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --debug --host",
-    "preview": "vite preview --host",
+    "preview": "vite preview --debug --host",
     "build": "run-s build:app build:injectAssets",
     "build:app": "vite build",
     "font-svg": "fontello-svg --config ./fontello/config.json --out ./fontello/icons",
@@ -22,9 +22,11 @@
     "workbox-window": "7.0.0"
   },
   "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.11.17",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "@vitejs/plugin-vue": "^5.0.3",
+    "@vue/tsconfig": "^0.5.1",
     "fontello-svg": "^0.5.0",
     "npm-run-all": "^4.1.5",
     "sass": "^1.70.0",

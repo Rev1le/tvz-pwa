@@ -10,7 +10,8 @@ vueApp.use(createPinia());
 vueApp.use(router);
 
 // Регестрируем `serviceWorker` и устанавливаем объектов во Vue приложение
-if ('serviceWorker' in navigator && !isDevMode) {
+// && !isDevMode
+if ('serviceWorker' in navigator ) {
   import('./providers/service-worker').then(({wb}) => {
     wb.register()
       .then((sw: any) => {
