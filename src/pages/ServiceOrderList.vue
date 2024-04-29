@@ -26,6 +26,9 @@ function openServiceOrder(id: number) {
     },
   })
 }
+
+import SvgIcon from '@/shared/ui/icon/SvgIcon.vue';
+
 </script>
 
 <template>
