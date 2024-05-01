@@ -2,6 +2,8 @@
 import { ref, inject, computed, onMounted, watch, reactive } from 'vue';
 import ImageSlider from '@/shared/ui/image-slider/ImageSlider.vue';
 
+import SvgIcon from '@/shared/ui/icon/SvgIcon.vue';
+
 import { STORE_NAME as DB_STORE_NAME, getStoreTransaction, useFaultStore } from "@/entities/fault";
 import { saveImage, getDbImagesUrlList, retrieveFaultImages } from "../model";
 import ModalDialog from  '@/shared/ui/modal/ModalDialog.vue';
@@ -100,11 +102,23 @@ async function uploadImages() {
     </tr>
     <td class="table-cell"></td>
     <td class="table-cell">
-      <span @click="activeModal = !activeModal" class="link-btn fault-tr__close-btn is-danger">EXIT</span>
+      <span
+        class="fault-tr__close-btn link-btn is-danger"
+        @click="activeModal = !activeModal"
+      >
+        <span>Закрыть</span>
+        <SvgIcon class="close-btn-svg" name="cross" />
+      </span>
     </td>
   </tr>
   <ModalDialog v-model="activeModal">
-    <button style="margin: auto;" class="is-primary link-btn" @click="uploadImages">Выгрузить фотографии в облако?</button>
+    <button
+      style="margin: auto;"
+      class="is-primary link-btn"
+      @click="uploadImages"
+    >
+      Выгрузить фотографии в облако?
+    </button>
   </ModalDialog>
 </template>
 
@@ -139,10 +153,23 @@ async function uploadImages() {
 
 }
 
-.fault-tr__close-btn {
-  width: 15px;
-  height: 10px;
+td:has(.fault-tr__close-btn) {
+  width: 50%;
+}
+
+span.fault-tr__close-btn.link-btn {
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   margin: 0px 8px 0px auto;
+}
+
+.fault-tr__close-btn span {
+  line-height: 18px;
 }
 
 .fault-tr__image {

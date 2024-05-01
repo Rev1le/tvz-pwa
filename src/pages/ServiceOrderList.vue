@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import { inject } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRouter, } from 'vue-router';
 import { useFilterStore } from "@/entities/filters";

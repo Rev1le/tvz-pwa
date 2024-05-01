@@ -4,12 +4,29 @@ import { ref, watch } from 'vue';
 const modalDialog = ref(null);
 const model = defineModel()
 
-watch(
-  model,
-  (newValue) => newValue
-    ? modalDialog.value.showModal()
-    : modalDialog.value.close()
-);
+function closeModal() {
+  modalDialog.value.classList.remove('hide');
+  modalDialog.value.close();
+  modalDialog.value.removeEventListener(
+    'webkitAnimationEnd',
+    closeModal,
+    false
+  )
+};
+
+watch(model,(newValue) => {
+  if (newValue) {
+    modalDialog.value.showModal()
+    return;
+  }
+
+  modalDialog.value.classList.add("hide");
+  modalDialog.value.addEventListener(
+    'webkitAnimationEnd',
+    closeModal,
+    false
+  );
+});
 </script>
 
 <template>
@@ -28,10 +45,10 @@ watch(
 $button-side-size: 2rem;
 $content-padding: 8px;
 
-
 .modal {
   border-width: 0;
   background-color: white;
+  
   padding: $content-padding;
   box-shadow:
     0 .7px 1.4px rgba(0,0,0,.07),
@@ -40,8 +57,20 @@ $content-padding: 8px;
   border-radius: 4px;
 
   margin: auto;
-  height: 85vh;
-  width: 80vh;
+  height: 95vh;
+  width: 90vw;
+
+  padding: 0;
+  padding-top: 8px;
+}
+
+.modal__content {
+  background-color: var(--theme-background);
+  // background-color: white;
+  padding: 0;
+  padding-top: 8px;
+  height: calc(100% - (8px + 32px));
+  // height: 100%;
 }
 
 .modal:focus-visible {
@@ -69,5 +98,67 @@ $content-padding: 8px;
 
 .modal__content {
   margin-top: calc($button-side-size + $content-padding);
+}
+
+
+.modal::backdrop {
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal[open] {
+  animation: scaleUp .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+.modal[open]::backdrop {
+  animation: fadeIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+.modal.hide {
+  animation: scaleDown .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+.modal.hide::backdrop {
+  animation: fadeOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform:scale(.8) translateY(1000px);
+    opacity:0;
+  }
+  100% {
+    transform:scale(1) translateY(0px);
+    opacity:1;
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform:scale(1) translateY(0px);
+    opacity:1;
+  }
+  100% {
+    transform:scale(.8) translateY(1000px);
+    opacity:0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    background:rgba(0,0,0,.0);
+  }
+  100% {
+    background:rgba(0,0,0,.7);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    background:rgba(0,0,0,.7);
+  }
+  100% {
+    background:rgba(0,0,0,.0);
+  }
 }
 </style>

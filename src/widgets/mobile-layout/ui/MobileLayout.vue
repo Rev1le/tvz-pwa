@@ -25,7 +25,11 @@ const menuItemsList = computed(() => router.options.routes
   <header class="mobile-layout__header">
     <SideMenu>
       <div class="side-menu__content">
-        <router-link v-for="item in menuItemsList" :to="item.path" class="menu-item">
+        <router-link
+          class="menu-item"
+          v-for="item in menuItemsList"
+          :to="item.path"
+        >
           {{ item.label }}
         </router-link>
       </div>

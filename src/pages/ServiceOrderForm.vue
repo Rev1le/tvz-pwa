@@ -135,7 +135,7 @@ const tab = ref(null);
   margin-left: 5px;
 }
 
-.link-btn {
+/* .link-btn {
   background-color: #CCE4F5;
   padding: 10px 20px;
   flex: 1;
@@ -143,7 +143,7 @@ const tab = ref(null);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
+} */
 
 .common-labels {
   display: flex;

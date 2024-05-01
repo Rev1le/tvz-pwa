@@ -13,7 +13,7 @@ self.addEventListener('install', event => {
 
 // The activate handler takes care of cleaning up old caches.
 self.addEventListener('activate', event => {
-  console.log('active');
+  self.console.log('active');
   const currentCaches = [PRECACHE, RUNTIME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -26,12 +26,16 @@ self.addEventListener('activate', event => {
   );
 });
 
-// The fetch handler serves responses for same-origin resources from a cache.
-// If no response is found, it populates the runtime cache with the response
-// from the network before returning it to the page.
 self.addEventListener('fetch', event => {
   // Skip cross-origin requests, like those for Google Analytics.
   if (event.request.url.startsWith(self.location.origin)) {
+    // const urlFileExtenshion = (/[^.]+$/.exec(event.request.url));
+    // if (!urlFileExtenshion) {
+    //   console.log('Url route');
+    //   event.request.url = '/';
+    // }
+
+    self.console.log(event.request);
     event.respondWith(
       caches.match(event.request).then(cachedResponse => {
         if (cachedResponse) {
