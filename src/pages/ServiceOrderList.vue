@@ -5,7 +5,6 @@ import { useRouter, } from 'vue-router';
 
 import SvgIcon from '@/shared/ui/icon/SvgIcon.vue';
 import { useFilterStore } from "@/widgets/filters";
-import Arrow from "@/shared/ui/assets/icons/down-arrow.svg";
 import { useServiceOrderStore, ServiceOrderTableRow } from "@/entities/service-order"
 import { ClientFilter, OrderTypeFilter } from "@/widgets/filters";
 

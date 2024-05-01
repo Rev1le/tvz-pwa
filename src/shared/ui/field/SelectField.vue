@@ -16,7 +16,7 @@
         v-model="inputValue">
       <div class="field__options">
         <div v-show="isLoading" class="loading-icon"></div>
-        <Arrow v-show="!isLoading" />
+        <SvgIcon name="down-arrow" :size="20" color="grey" v-show="!isLoading" />
         <!-- @todo Добавлять новые опции поля -->
       </div>
     </div>
@@ -24,7 +24,7 @@
       v-show="isOpenDropDown"
       class="field-drop-down"
     >
-      <input class="field-drop-down__search" :placeholder="searchPlaceholder">
+      <input ref="dropDownSearchRef" class="field-drop-down__search" :placeholder="searchPlaceholder">
       <div class="field-drop-down__content">
         <slot name="content" :search-value="searchValue"></slot>
       </div>
@@ -35,7 +35,7 @@
 <script setup>
 import { ref } from 'vue';
 
-import Arrow from "@/shared/ui/assets/icons/down-arrow.svg";
+import SvgIcon from '@/shared/ui/icon/SvgIcon.vue';
 
 const $props = defineProps({
   isDisabled: {
@@ -51,25 +51,24 @@ const $props = defineProps({
 });
 
 const $emits = defineEmits(['input']);
-
 const inputValue = defineModel('inputValue');
 
 const searchValue = ref(null);
-
 const isOpenDropDown = ref(false);
-
 const selectRef = ref(null);
+const dropDownSearchRef = ref(null);
 
 const focusIn = () => {
   isOpenDropDown.value = true;
 };
 
 const focusOut = (event) => {
-  if (!event.relatedTarget) {
+  const isRelatedFocus = Object.is(event.relatedTarget, dropDownSearchRef.value);
+
+  if (!isRelatedFocus) {
     isOpenDropDown.value = false;
   }
 };
-
 </script>
 
 <style lang="scss">

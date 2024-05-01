@@ -1,12 +1,9 @@
 <script setup>
-import LinkExt from "@/shared/ui/assets/icons/link-ext.svg";
-import FolderOpenEmpty from "@/shared/ui/assets/icons/folder-open-empty.svg";
-import DocText from "@/shared/ui/assets/icons/doc-text.svg";
 import { Tabs } from '@/widgets/tabs';
 import { ref, computed, provide, inject } from 'vue';
 import { storeToRefs } from "pinia";
 import { useRoute } from 'vue-router';
-
+import SvgIcon from '@/shared/ui/icon/SvgIcon.vue';
 import { useFaultStore, FaultTableRow } from '@/entities/fault';
 
 const faultStore = useFaultStore();
@@ -38,8 +35,12 @@ const tab = ref(null);
         </div>
       </div>
       <div class="common-labels__link-btn-list">
-        <span class="link-btn"><DocText /></span>
-        <span class="link-btn"><LinkExt /></span>
+        <span class="link-btn">
+          <SvgIcon name="document" />
+        </span>
+        <span class="link-btn">
+          <SvgIcon name="link" />
+        </span>
       </div>
     </div>
 
