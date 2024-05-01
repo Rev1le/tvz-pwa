@@ -18,8 +18,6 @@
 </template>
 
 <script setup>
-import Arrow from "@/shared/ui/assets/icons/down-arrow.svg";
-
 const $props = defineProps({
   readOnly: {
     type: Boolean,
@@ -42,9 +40,7 @@ const $props = defineProps({
 });
 
 const $emits = defineEmits(['input']);
-
 const inputValue = defineModel();
-
 </script>
 
 <style>

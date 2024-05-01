@@ -1,12 +1,10 @@
 <script setup>
-
 const $props = defineProps({
   order: {
     type: Object,
     required: true
   }
 })
-
 </script>
 
 <template>
@@ -14,14 +12,15 @@ const $props = defineProps({
     <th>
       <span>{{ order.name }}</span>
     </th>
-    <!-- {{ order }} -->
     <td class="table-field">
       <span class="table-field__name">Id заявки</span>
       <span class="table-field__value"> {{ order.id }} </span>
     </td>
     <td class="table-field">
       <span class="table-field__name">Кол-во техники</span>
-      <span class="table-field__value"> {{ order.openedFaultAmount }}/{{ order.allFaultAmount }} </span>
+      <span class="table-field__value">
+        {{ order.openedFaultAmount }}/{{ order.allFaultAmount }}
+      </span>
     </td>
   </tr>
 </template>
@@ -39,16 +38,16 @@ const $props = defineProps({
   border-radius: 4px;
   display: flex;
   flex-wrap: wrap;
+}
 
-  & th {
-    font-weight: inherit;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    border: none;
-    text-align: left;
-    padding: 8px;
-  }
+.service-order-tr th {
+  font-weight: inherit;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  border: none;
+  text-align: left;
+  padding: 8px;
 }
 
 </style>

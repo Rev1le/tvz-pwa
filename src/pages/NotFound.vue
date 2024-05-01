@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-// import PageFilters from '../widgets/PageFilters.vue';
 </script>
 
 <style>

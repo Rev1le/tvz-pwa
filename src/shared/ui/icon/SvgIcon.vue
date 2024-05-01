@@ -10,7 +10,7 @@ const $props = defineProps({
 </script>
 
 <template>
-  <svg :width="size" :height="size">
+  <svg :width="size" :height="size" :fill="color">
     <use :href="`/sprite.svg#${name}`"></use>
   </svg>
 </template>

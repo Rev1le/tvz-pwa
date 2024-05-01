@@ -3,12 +3,9 @@ import LinkExt from "@/shared/ui/assets/icons/link-ext.svg";
 import FolderOpenEmpty from "@/shared/ui/assets/icons/folder-open-empty.svg";
 import DocText from "@/shared/ui/assets/icons/doc-text.svg";
 import { Tabs } from '@/widgets/tabs';
-import { FaultList } from '@/widgets/fault/fault-list';
-import { FieldGroup } from '@/entities/field-group';
 import { ref, computed, provide, inject } from 'vue';
 import { storeToRefs } from "pinia";
 import { useRoute } from 'vue-router';
-import { FormField, InputField } from "@/shared/ui/field";
 
 import { useFaultStore, FaultTableRow } from '@/entities/fault';
 
@@ -19,18 +16,6 @@ faultStore.receiveOrderFaults(route.query.orderId);
 const {faults} = storeToRefs(faultStore);
 
 const tab = ref(null);
-
-// const $props = defineProps({
-//   store: {
-//     default: () => ({})
-//   }
-// });
-
-// provide('appStore', $props.store);
-
-
-// const db = inject('appStore');
-//   console.log('ddd', db);
 
 </script>
 
@@ -67,31 +52,7 @@ const tab = ref(null);
           :key="index"
         />
       </table>
-      <!-- <div class="service-order-form__car-list">
-        <FaultTableRow />
-        <div
-          class="service-order-form__car-item"
-          v-for="fault in faults[route.query.orderId]">
-          {{ fault.carName }}
-        </div>
-      </div> -->
     </div>
-
-    <!-- <div class="service-order-form__fields">
-      <FieldGroup>
-        <template v-slot:fields>
-          <div style="display: flex; flex-direction: column; gap: 5px; margin-top: 10px;">
-            
-            <FormField label="Дата"><InputField /></FormField>
-            <FormField label="Дата еще"><InputField /></FormField>
-          </div>
-        </template>
-      </FieldGroup>
-    </div>
-    <div class="service-order-form__fields">
-      <h4>Неисправности</h4>
-      <FaultList />
-    </div> -->
   </div>
 </template>
 

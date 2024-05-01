@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { SelectField } from "@/shared/ui/field";
-import { useFilterStore } from "@/entities/filters";
+import { useFilterStore } from "@/widgets/filters";
 import CheckboxListValue from "@/shared/ui/list/CheckboxListValue.vue";
 
 const filterStore = useFilterStore();
