@@ -13,7 +13,6 @@
       <!-- <Arrow /> -->
       <!-- @todo Добавлять новые опции поля -->
     </div>
-    
   </div>
 </template>
 
@@ -44,6 +43,7 @@ const inputValue = defineModel();
 </script>
 
 <style>
+/*
 .field {
   position: relative;
   max-width: 400px;
@@ -87,4 +87,5 @@ const inputValue = defineModel();
     transform: rotate(359deg);
   }
 }
+*/
 </style>

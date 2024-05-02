@@ -8,7 +8,7 @@ RUN npm i
 
 COPY ../ ./
 
-RUN npm run build:app
+RUN npm run build
 
 EXPOSE 4173
 

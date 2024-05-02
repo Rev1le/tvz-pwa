@@ -1,5 +1,7 @@
 @import url("https://fonts.cdnfonts.com/css/pt-root-ui");
 
+@import "./vars";
+
 *,
 html,
 body {
@@ -16,11 +18,11 @@ body {
 //Стили проекта
 * {
   color: var(--theme-text);
-  font-family: PT Root UI;
+  font-family: $font-family;
 }
 
 div, span, button {
-  border-radius: 4px;
+  border-radius: $border-radius;
 }
 
 @mixin types() {
@@ -33,6 +35,9 @@ div, span, button {
   }
 }
 
+// Animations
+@import "./animations";
+
 // input
 @import "./input";
 
@@ -43,8 +48,8 @@ a {
 
 // button
 button.link-btn, span.link-btn {
-  background-color: #CCE4F5;
-  padding: 10px 20px;
+  background-color: var(--theme-link-btn);
+  padding: $large-padding $large-padding * 2;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -58,7 +63,7 @@ button.link-btn, span.link-btn {
 
 .page__filters {
 	background-color: var(--theme-surface);
-	padding: 10px 15px;
+  padding: 0 $medium-padding $large-padding;
   display: flex;
   gap: 8px;
   flex-direction: column;

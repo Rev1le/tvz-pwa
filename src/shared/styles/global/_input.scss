@@ -1,51 +1,63 @@
-input {
-	font-size: 16px;
+@import './vars';
 
-	max-width: 400px;
-	width: 100%;
-	height: 46px;
-	background-color: var(--theme-light-background);
-	box-shadow: 0 0 transparent,inset 0 0 0 1px var(--theme-shadow);
-	transition:
+input {
+  background-color: var(--theme-light-background);
+  box-shadow: 0 0 transparent, inset 0 0 0 1px var(--theme-shadow);
+
+  border: none;
+  height: 46px;
+  padding: $large-padding;
+  width: 100%;
+  border-radius: $border-radius;
+
+  font-size: 16px;
+  text-decoration: none;
+
+	background-repeat: no-repeat;
+	background-size: 0% 100%;
+	
+  transition:
     box-shadow 150ms ease-in,
     background-image 150ms ease-in,
     background-size 150ms ease-in,
     background-color 150ms ease-in;
-	font-weight: 400;
-	border: none;
-	border-radius: 6px;
-	padding: 12px;
 
-  &:focus {
-    outline: none;
+  @supports (-moz-appearance: none) {
+    transition-property: box-shadow, background-image, background-size;
   }
+}
+
+input:disabled {
+  color: var(--theme-disabled-text);
+  cursor: not-allowed;
+  background: var(--theme-disabled-background);
+  box-shadow: inset 0 0 0 1px var(--theme-shadow);
 
   &::placeholder {
-    font-weight: 500;
-    font-size: 16px;
-    color: var(--theme-placeholder);
-  }
-
-  &:focus[selectable=false], input:focus:not([selectable]) {
-    background-color: #fff;
-    background-image: linear-gradient(to top, #07C, #07C 2px, transparent 2px, transparent 100%);
-    background-size: 100% 100%;
-    box-shadow: inset 0 0 0 1px var(--theme-shadow);
-    outline-offset: 1px;
-  }
-
-  &:disabled {
-    color: #98a2b3;
-    cursor: not-allowed;
-    background: #eef2f7;
-    box-shadow: inset 0 0 0 1px var(--theme-shadow);
-  }
-
-  &:disabled::placeholder {
     color: #98a2b3;
     opacity: 1;
     font-weight: 500;
   }
+}
+
+input:focus {
+  background-color: #fff;
+  background-image: linear-gradient(
+    to top,
+    #07C,
+    #07C 2px,
+    transparent 2px,
+    transparent 100%
+  );
+  background-size: 100% 100%;
+  outline:none;
+  box-shadow:inset 0 0 0 1px var(--theme-shadow)
+}
+
+input::placeholder {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--theme-placeholder);
 }
 
 input[type=file] {
@@ -55,11 +67,12 @@ input[type=file] {
 input[type=file]::file-selector-button {
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  border-width: 0px;
   vertical-align: middle;
+  
+  cursor: pointer;
   font-weight: 500;
   font-size: 1rem;
-  color: rgb(255, 255, 255);
-  background-color: var(--theme-secondary); //#296CEE;
-  border-width: 0px;
+  color: var(--theme-light-text);
+  background-color: var(--theme-secondary);
 }

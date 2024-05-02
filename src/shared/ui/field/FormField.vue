@@ -15,10 +15,12 @@ const $props = defineProps({
 </template>
 
 <style>
+/*
 .form-field {
   padding: 4px 0px;
 }
 .form-field__label {
   margin-bottom: 4px;
 }
+*/
 </style>
