@@ -1,6 +1,9 @@
 <script setup>
 const $props = defineProps({
-  name: String,
+  name: {
+    type: String,
+    required: true
+  },
   color: String,
   size: {
     type: Number,

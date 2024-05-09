@@ -33,25 +33,16 @@ export default defineConfig({
   },
   preview: {
     port: 4173,
-    strictPort: true,
+    strictPort: true
   },
   server: {
     proxy: {
-      "/main": {
+      "/api": {
         target: PROXY_URL,
         changeOrigin: true,
         secure: false,
-      },
-      "/vue-global-filter": {
-        target: PROXY_URL,
-        changeOrigin: true,
-        secure: false,
-      },
-      "/support": {
-        target: PROXY_URL,
-        changeOrigin: true,
-        secure: false,
-      },
+        rewrite: path => path.replace(/^\/api/, '')
+      }
     },
   },
   resolve: {

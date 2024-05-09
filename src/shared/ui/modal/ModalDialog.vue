@@ -14,7 +14,7 @@ function closeModal() {
   )
 };
 
-watch(model,(newValue) => {
+watch(model, (newValue) => {
   if (newValue) {
     modalDialog.value.showModal()
     return;

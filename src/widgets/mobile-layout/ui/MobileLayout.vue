@@ -34,7 +34,7 @@ const menuItemsList = computed(() => router.options.routes
         </router-link>
       </div>
     </SideMenu>
-    <h1>{{route?.meta?.label}}</h1>
+    <h1 class="mobile-layout__page-label">{{route?.meta?.label}}</h1>
     <div class="mobile-layout__app-status">
       <app-status-icon />
       {{ appStore.isOnlineMode ? 'Online' : 'Offline' }}
@@ -81,6 +81,10 @@ const menuItemsList = computed(() => router.options.routes
 
   }
 
+  &__page-label {
+    text-align: center;
+  }
+
   &__app-status {
     padding: 8px;
     background-color: #F0F2F8;
@@ -122,7 +126,7 @@ h1 {
   font-size: 20px;
 
   &:not(:last-child) {
-    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }
 </style>
